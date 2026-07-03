@@ -1,10 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.13"
-# dependencies = [
-#     "pymupdf>=1.24",
-# ]
-# ///
 """
 chunkpdf - Convert a PDF into one PNG per page at a low resolution.
 

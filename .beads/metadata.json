@@ -1,9 +1,0 @@
-{
-  "database": "dolt",
-  "backend": "dolt",
-  "dolt_mode": "server",
-  "dolt_database": "beads_chunkpdf",
-  "dolt_server_host": "doltsvr",
-  "dolt_server_user": "yesoduser",
-  "project_id": "5a93437f-105e-4dbc-a7cb-c22c9393c95f"
-}

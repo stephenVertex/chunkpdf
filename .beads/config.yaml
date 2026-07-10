@@ -1,5 +1,0 @@
-export:
-  auto: false
-no-git-ops: true
-routing:
-  mode: explicit

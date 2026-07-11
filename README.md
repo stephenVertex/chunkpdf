@@ -1,7 +1,9 @@
 # chunkpdf
 
-Convert a PDF into one low-quality PNG per page — intended for feeding pages to
-LLMs for layout evaluation, where small images keep token/byte counts down.
+Convert a PDF into one low-quality PNG per page, or into an animated GIF
+carousel of all pages — intended for feeding pages to LLMs for layout
+evaluation, or for sharing on platforms that don't support PDF carousels
+directly.
 
 ## Install
 
@@ -14,8 +16,8 @@ cd chunkpdf
 This symlinks `chunkpdf.py` into `~/.local/bin/chunkpdf`. Make sure
 `~/.local/bin` is on your `PATH`.
 
-Requires [`uv`](https://docs.astral.sh/uv/). Dependencies (PyMuPDF, Python
-3.13+) are resolved automatically by the uv script shebang on first run.
+Requires [`uv`](https://docs.astral.sh/uv/). Dependencies (PyMuPDF, Pillow,
+Python 3.13+) are resolved automatically by the uv script shebang on first run.
 
 ## Usage
 
@@ -29,14 +31,29 @@ chunkpdf document.pdf -s 500KB         # cap each PNG at 500 KB
 chunkpdf document.pdf -d 300 -s 1MB    # high DPI, but keep each PNG under 1 MB
 ```
 
+### Animated GIF carousel
+
+```bash
+chunkpdf document.pdf --gif                      # -> document.gif (2s per page)
+chunkpdf document.pdf --gif -o ./slideshow.gif   # custom output path
+chunkpdf document.pdf --gif --seconds-per-page 5 # each page shown for 5s
+chunkpdf document.pdf --gif --page-turn          # slide transition between pages
+chunkpdf document.pdf --gif --page-turn --turn-fps 24 --turn-duration 0.8
+```
+
 ### Options
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `-o`, `--output-dir` | `<stem>_pages` next to input | Where PNGs are written |
+| `-o`, `--output-dir` | `<stem>_pages` next to input | Output directory (PNG mode) or `.gif` file (GIF mode) |
 | `-d`, `--dpi` | `72` | Rendering DPI |
 | `-w`, `--max-width` | `1024` | Max pixel width; pages scaled down to fit. `0` to disable. |
 | `-s`, `--max-size` | _none_ | Max file size per output PNG (e.g. `500KB`, `1.5MB`). Pages are iteratively downscaled until each PNG fits. `0` to disable. |
+| `--gif` | off | Output an animated GIF carousel instead of individual PNGs |
+| `--seconds-per-page` | `2.0` | Seconds each page is displayed in the GIF |
+| `--page-turn` | off | Add a slide page-turn transition between pages in the GIF |
+| `--turn-fps` | `15` | Frame rate for page-turn transitions |
+| `--turn-duration` | `0.5` | Duration of each page-turn transition in seconds |
 
 ## Why
 
@@ -54,3 +71,8 @@ downscales until the PNG fits:
 ```bash
 chunkpdf report.pdf -s 500KB    # every page PNG ≤ 500 KB
 ```
+
+The GIF carousel mode is useful when you need to share a multi-page PDF on
+platforms that only accept images (e.g. social media, chat apps). The
+`--page-turn` option adds a smooth slide transition between pages, making the
+carousel feel like a native slideshow.

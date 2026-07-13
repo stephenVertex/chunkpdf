@@ -10,14 +10,11 @@ directly.
 ```bash
 git clone git@github.com:stephenVertex/chunkpdf.git
 cd chunkpdf
-./install.sh
+uv tool install --editable .
 ```
 
-This symlinks `chunkpdf.py` into `~/.local/bin/chunkpdf`. Make sure
-`~/.local/bin` is on your `PATH`.
-
 Requires [`uv`](https://docs.astral.sh/uv/). Dependencies (PyMuPDF, Pillow,
-Python 3.13+) are resolved automatically by the uv script shebang on first run.
+Python 3.13+) are resolved automatically by uv on first run.
 
 ## Usage
 

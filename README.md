@@ -7,17 +7,23 @@ directly.
 
 ## Install
 
+Requires [`uv`](https://docs.astral.sh/uv/).
+
 ```bash
 git clone git@github.com:stephenVertex/chunkpdf.git
 cd chunkpdf
-./install.sh
+uv tool install --editable .
 ```
 
-This symlinks `chunkpdf.py` into `~/.local/bin/chunkpdf`. Make sure
-`~/.local/bin` is on your `PATH`.
+This installs the `chunkpdf` command globally (editable, so updates to the
+repo are picked up automatically). Dependencies (PyMuPDF, Pillow, Python
+3.13+) are managed by `uv`.
 
-Requires [`uv`](https://docs.astral.sh/uv/). Dependencies (PyMuPDF, Pillow,
-Python 3.13+) are resolved automatically by the uv script shebang on first run.
+To verify:
+
+```bash
+chunkpdf --version
+```
 
 ## Usage
 
@@ -45,6 +51,7 @@ chunkpdf document.pdf --gif --page-turn --turn-fps 24 --turn-duration 0.8
 
 | Flag | Default | Description |
 |------|---------|-------------|
+| `--version` | — | Show version number and exit |
 | `-o`, `--output-dir` | `<stem>_pages` next to input | Output directory (PNG mode) or `.gif` file (GIF mode) |
 | `-d`, `--dpi` | `72` | Rendering DPI |
 | `-w`, `--max-width` | `1024` | Max pixel width; pages scaled down to fit. `0` to disable. |

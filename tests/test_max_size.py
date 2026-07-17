@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-import importlib
 from pathlib import Path
 
 import pymupdf
 import pytest
 
-chunkpdf = importlib.import_module("chunkpdf")
+import chunkpdf
+
 parse_size = chunkpdf.parse_size
 convert_pdf_to_pngs = chunkpdf.convert_pdf_to_pngs
 

@@ -1,0 +1,30 @@
+[project]
+name = "chunkpdf"
+version = "0.1.0"
+description = "Convert a PDF into one low-quality PNG per page or an animated GIF carousel."
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [{ name = "stephen" }]
+dependencies = [
+    "pymupdf>=1.24",
+    "pillow>=10.0",
+]
+
+[project.scripts]
+chunkpdf = "chunkpdf:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chunkpdf"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,18 +1,13 @@
 """Tests for the GIF conversion feature of chunkpdf."""
 from __future__ import annotations
 
-import importlib.util
 from pathlib import Path
 
 import pymupdf
 import pytest
 from PIL import Image
 
-# Load chunkpdf.py as a module (it's a script, not a package).
-_SCRIPT_PATH = Path(__file__).resolve().parent.parent / "chunkpdf.py"
-_spec = importlib.util.spec_from_file_location("chunkpdf", _SCRIPT_PATH)
-chunkpdf = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(chunkpdf)
+import chunkpdf
 
 
 # ---------------------------------------------------------------------------

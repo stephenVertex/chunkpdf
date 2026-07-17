@@ -1,11 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.13"
-# dependencies = [
-#     "pymupdf>=1.24",
-#     "pillow>=10.0",
-# ]
-# ///
 """
 chunkpdf - Convert a PDF into one PNG per page at a low resolution,
 or into an animated GIF carousel of all pages.
@@ -21,6 +13,13 @@ import argparse
 import re
 import sys
 from pathlib import Path
+
+from importlib.metadata import version as _pkg_version, PackageNotFoundError
+
+try:
+    __version__ = _pkg_version("chunkpdf")
+except PackageNotFoundError:  # running from source without install
+    __version__ = "0.1.0"
 
 import pymupdf  # PyMuPDF
 from PIL import Image
@@ -264,6 +263,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Convert a PDF to one low-quality PNG per page (for LLM layout review), "
         "or to an animated GIF carousel."
+    )
+    parser.add_argument(
+        "--version", action="version",
+        version=f"chunkpdf {__version__}",
     )
     parser.add_argument("input_pdf", type=Path, help="Path to input PDF")
     parser.add_argument(
